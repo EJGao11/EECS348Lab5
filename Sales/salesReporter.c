@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <stdbool.h>
 typedef struct
 {
   unsigned int month;
@@ -33,7 +33,7 @@ static const char sMonthName[12][32] =
 
 static MonthlySales sData[sMonths];
 
-void MonthReport(FILE* file)
+bool MonthReport(FILE* file)
 {
   printf("Monthly Sales Report for 2024 \n\n");
   printf("%-20s%-20s\n","Month","Sales");
@@ -49,9 +49,10 @@ void MonthReport(FILE* file)
       else
       {
         printf("Not enough data");
+        return false;
       }
   }
-  return;
+  return true;
 }
 
 void SalesSummary()
@@ -134,11 +135,12 @@ int main()
     return 0;
   }
 
-  MonthReport(file);
-  SalesSummary();
-  SixMonthAverage();
-  SortReport();
-
+  if(MonthReport(file))
+  {
+    SalesSummary();
+    SixMonthAverage();
+    SortReport();
+  }
   fclose(file);
 
   return 0;
