@@ -127,7 +127,7 @@ void SortReport()
 
 int main()
 {
-  FILE* file = fopen("salesData.txt", "r");
+  FILE* file = fopen("/Users/ethangao/Documents/GitHub/EECS348Lab5/Sales/salesData.txt", "r");
 
   if(file == NULL)
   {
