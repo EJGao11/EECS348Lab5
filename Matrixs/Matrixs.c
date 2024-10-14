@@ -6,13 +6,15 @@
 
 
 #include <stdlib.h>
+#include <stdio.h>
+
 #define SIZE 5 
 
-static sResultMatrix[SIZE][SIZE];
+static int sResultMatrix[SIZE][SIZE];
 
 void readMatrix(int matrix[SIZE][SIZE], int rows, int cols)
 {
-  printf("\nEnter elements: \n");
+  printf("Enter elements: ");
   for (int i = 0; i < rows; i++) 
   {
     for (int j = 0; j < cols; j++) 
@@ -32,6 +34,20 @@ void addMatrix(int matrix1[SIZE][SIZE], int matrix2[SIZE][SIZE], int rows, int c
       sResultMatrix[i][j] = matrix1[i][j] + matrix2[i][j];
     }
   }
+}
+
+void multipleMatrix(int matrix1[SIZE][SIZE], int matrix2[SIZE][SIZE], int rows1, int rows2, int cols2) 
+{
+  for (int i = 0; i < rows1; i++) 
+  {
+    for (int j = 0; j < cols2; j++)
+    {
+      for (int k = 0; k < rows2; k++) 
+      {
+        sResultMatrix[i][j] += matrix1[i][k] * matrix2[k][j];
+      }
+    }
+ }
 }
 
 void matrixTranspose (int matrix[SIZE][SIZE], int rows, int cols) 
@@ -85,7 +101,7 @@ int main()
   readMatrix(m2, rows2, cols2);
 
   printf("Choose the operation:\n");
-  printf("1. Add matrices\n2. Multiply matrices\n3. Transpose matrix\n4. 4. Print matrix\n");
+  printf("1. Add matrices\n2. Multiply matrices\n3. Transpose matrix\n4. Print matrix\n");
   scanf("%d", &choice);
   
   switch (choice)
@@ -106,7 +122,8 @@ int main()
     case 2:
       if(cols1 == rows2)
       {
-        multipleMatrix();
+        multipleMatrix(m1,m2,rows1,rows2,cols2);
+        printMatrix(sResultMatrix,rows1,cols2);
       }
       else
       {
@@ -120,13 +137,13 @@ int main()
       if(matrixChoice == 1)
       {
         matrixTranspose(m1,rows1,cols1);
-        printf("Results: ");
+        printf("Results: \n");
         printMatrix(sResultMatrix,cols1,rows1);
       }
       else if(matrixChoice == 2)
       {
         matrixTranspose(m2,rows1,cols1);
-        printf("Results: ");
+        printf("Results: \n");
         printMatrix(sResultMatrix,cols2,rows1);
       }
       else
